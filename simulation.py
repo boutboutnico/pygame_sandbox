@@ -28,11 +28,11 @@ class Simulation:
         rect.topleft = screen_rect.topleft
         self.wall_group.append(Wall(rect))
 
-        # self.ball = Ball(screen_rect.center)
-
         self.ball_group = list()
-        for i in range(250):
-            self.ball_group.append(Ball((random.randint(0, screen_rect.w), random.randint(0, screen_rect.h))))
+        for i in range(50):
+            b = Ball((random.randint(0, screen_rect.w), random.randint(0, screen_rect.h)))
+            if not any(Physics.is_circle_collision(b, ball) for ball in self.ball_group):
+                self.ball_group.append(b)
 
         self.physics = Physics()
         self.physics.solids.extend(self.wall_group)
